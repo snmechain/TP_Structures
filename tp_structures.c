@@ -33,12 +33,11 @@ int main(void) {
 
     afficher_parc(mon_parc, n);
 
-    // Changement d'etat du premier equipement
     printf("\nChangement d'etat du premier equipement...\n");
     changer_etat(&mon_parc[0]);
 
-    // TODO: Re-affichage pour verification
-    // afficher_parc(...);
+    // Re-affichage pour verification
+    afficher_parc(mon_parc, n);
 
     // TODO: Liberation de la mémoire
     // free(...);
