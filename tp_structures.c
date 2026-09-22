@@ -2,21 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-// 1. Définition de la structure
 typedef struct {
     int id;
     char nom[30];
     char ip[16];
-    int est_actif; // 1 = Actif, 0 = Inactif
+    int est_actif;
 } Equipement;
 
-// 2. Prototypes des fonctions
 Equipement* allouer_parc(int nb_equipements);
 void saisir_parc(Equipement *parc, int nb_equipements);
 void afficher_parc(const Equipement *parc, int nb_equipements);
 void changer_etat(Equipement *eq);
 
-// 3. Programme principal
 int main(void) {
     int n = 0;
     Equipement *mon_parc = NULL;
@@ -25,10 +22,13 @@ int main(void) {
     printf("Combien d'equipements voulez-vous gerer ? ");
     scanf("%d", &n);
 
-    // Allocation dynamique du parc
     mon_parc = allouer_parc(n);
 
-    // TODO: Verification du pointeur (NULL ?)
+    // Verification du pointeur
+    if (mon_parc == NULL) {
+        printf("Erreur : allocation memoire impossible.\n");
+        return 1;
+    }
 
     // TODO: Saisie des equipements
     // saisir_parc(...);
@@ -50,12 +50,7 @@ int main(void) {
     return 0;
 }
 
-// --------------------------------------------------
-// 4. Définitions des fonctions à compléter ci-dessous
-// --------------------------------------------------
-
 Equipement* allouer_parc(int nb_equipements) {
-    // Utiliser malloc et vérifier si l'allocation a réussi
     Equipement *parc = malloc(nb_equipements * sizeof(Equipement));
 
     if (parc == NULL) {
@@ -66,13 +61,13 @@ Equipement* allouer_parc(int nb_equipements) {
 }
 
 void saisir_parc(Equipement *parc, int nb_equipements) {
-    // TODO: Remplir les champs de chaque équipement avec une boucle
+    // TODO
 }
 
 void afficher_parc(const Equipement *parc, int nb_equipements) {
-    // TODO: Parcourir le tableau et afficher les informations
+    // TODO
 }
 
 void changer_etat(Equipement *eq) {
-    // TODO: Modifier la valeur de est_actif en passant par le pointeur
+    // TODO
 }
