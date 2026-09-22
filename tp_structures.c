@@ -31,12 +31,11 @@ int main(void) {
 
     saisir_parc(mon_parc, n);
 
-    // Affichage du parc
     afficher_parc(mon_parc, n);
 
-    // TODO: Changement d'etat du premier equipement
-    // printf("\nChangement d'etat du premier equipement...\n");
-    // changer_etat(...);
+    // Changement d'etat du premier equipement
+    printf("\nChangement d'etat du premier equipement...\n");
+    changer_etat(&mon_parc[0]);
 
     // TODO: Re-affichage pour verification
     // afficher_parc(...);
@@ -93,5 +92,10 @@ void afficher_parc(const Equipement *parc, int nb_equipements) {
 }
 
 void changer_etat(Equipement *eq) {
-    // TODO
+
+    eq->est_actif = !eq->est_actif;
+
+    printf("L'equipement %d est maintenant %s.\n",
+        eq->id,
+        eq->est_actif ? "ACTIF" : "INACTIF");
 }
