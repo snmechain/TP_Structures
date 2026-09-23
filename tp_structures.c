@@ -12,61 +12,129 @@ typedef struct {
 
 // 2. Prototypes des fonctions
 Equipement* allouer_parc(int nb_equipements);
-void saisir_parc(Equipement *parc, int nb_equipements);
-void afficher_parc(const Equipement *parc, int nb_equipements);
-void changer_etat(Equipement *eq);
+
+void saisir_parc(Equipement* parc, int nb_equipements);
+
+void afficher_parc(const Equipement* parc, int nb_equipements);
+
+void changer_etat(Equipement* eq);
 
 // 3. Programme principal
 int main(void) {
+
     int n = 0;
-    Equipement *mon_parc = NULL;
+    Equipement* mon_parc = NULL;
 
     printf("--- GESTION DU PARC RESEAU ---\n");
+
     printf("Combien d'equipements voulez-vous gerer ? ");
     scanf("%d", &n);
 
-    // TODO: Allocation dynamique du parc
-    // mon_parc = allouer_parc(...);
+    if (n <= 0) {
+        printf("Le nombre d'equipements doit etre superieur a 0.\n");
+        return 1;
+    }
 
-    // TODO: Verification du pointeur (NULL ?)
+    // Allocation dynamique du parc
+    mon_parc = allouer_parc(n);
 
-    // TODO: Saisie des equipements
-    // saisir_parc(...);
+    // Verification du pointeur
+    if (mon_parc == NULL) {
+        printf("Erreur : allocation memoire impossible.\n");
+        return 1;
+    }
 
-    // TODO: Affichage du parc
-    // afficher_parc(...);
+    // Saisie des equipements
+    saisir_parc(mon_parc, n);
 
-    // TODO: Changement d'etat du premier equipement
-    // printf("\nChangement d'etat du premier equipement...\n");
-    // changer_etat(...);
+    // Affichage du parc
+    afficher_parc(mon_parc, n);
 
-    // TODO: Re-affichage pour verification
-    // afficher_parc(...);
+    // Changement d'etat du premier equipement
+    printf("\nChangement d'etat du premier equipement...\n");
 
-    // TODO: Liberation de la mémoire
-    // free(...);
+    changer_etat(&mon_parc[0]);
+
+    // Re-affichage pour verification
+    afficher_parc(mon_parc, n);
+
+    // Liberation de la memoire
+    free(mon_parc);
 
     printf("\nMemoire liberee avec succes.\n");
+
     return 0;
 }
 
 // --------------------------------------------------
-// 4. Définitions des fonctions à compléter ci-dessous
+// 4. Définitions des fonctions
 // --------------------------------------------------
 
 Equipement* allouer_parc(int nb_equipements) {
-    // TODO: Utiliser malloc et vérifier si l'allocation a réussi
-    return NULL;
+
+    Equipement* parc = malloc(nb_equipements * sizeof(Equipement));
+
+    if (parc == NULL) {
+        return NULL;
+    }
+
+    return parc;
 }
 
-void saisir_parc(Equipement *parc, int nb_equipements) {
-    // TODO: Remplir les champs de chaque équipement avec une boucle
+
+void saisir_parc(Equipement* parc, int nb_equipements) {
+
+    for (int i = 0; i < nb_equipements; i++) {
+
+        printf("\n--- Saisie de l'equipement %d ---\n", i + 1);
+
+        printf("ID : ");
+        scanf("%d", &parc[i].id);
+
+        printf("Nom : ");
+        scanf("%29s", parc[i].nom);
+
+        printf("Adresse IP : ");
+        scanf("%15s", parc[i].ip);
+
+        printf("Actif (1: Oui, 0: Non) : ");
+        scanf("%d", &parc[i].est_actif);
+    }
 }
 
-void afficher_parc(const Equipement *parc, int nb_equipements) {
-    // TODO: Parcourir le tableau et afficher les informations
+
+void afficher_parc(const Equipement* parc, int nb_equipements) {
+
+    printf("\n--- LISTE DES EQUIPEMENTS ---\n");
+
+    for (int i = 0; i < nb_equipements; i++) {
+
+        printf("ID: %d | Nom: %s | IP: %s | Etat: ",
+            parc[i].id,
+            parc[i].nom,
+            parc[i].ip);
+
+        if (parc[i].est_actif == 1) {
+            printf("ACTIF\n");
+        }
+        else {
+            printf("INACTIF\n");
+        }
+    }
 }
 
-void changer_etat(Equipement *eq) {
-    // TODO: Modifier la valeur de est_actif en passant par le pointeur
+
+void changer_etat(Equipement* eq) {
+
+    if (eq->est_actif == 1) {
+        eq->est_actif = 0;
+    }
+    else {
+        eq->est_actif = 1;
+    }
+
+    printf("L'equipement %d est maintenant %s.\n",
+        eq->id,
+        eq->est_actif == 1 ? "ACTIF" : "INACTIF");
 }
+TP struture termine (:
